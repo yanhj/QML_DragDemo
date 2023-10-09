@@ -8,6 +8,7 @@ Window {
     title: qsTr("Hello World")
 
     Rectangle {
+            id: imgArea
              anchors.centerIn: parent
              width: 100
              height: 100
@@ -15,7 +16,7 @@ Window {
              radius: 5
              visible: true
 
-             Image {
+             AnimatedImage {
                  property url thunmbnail:""
                  id: img
                  visible: true
@@ -25,8 +26,8 @@ Window {
                  }
                  fillMode: Image.PreserveAspectCrop
                  source: "images/love.webp"
-                 onStatusChanged: {
-                     if(img.status == Image.Ready) {
+                 Component.onCompleted: {
+                     if(img.status == AnimatedImage.Ready) {
                          grabToImage(function(result){
                                      img.thunmbnail = result.url
                          });
