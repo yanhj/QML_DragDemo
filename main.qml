@@ -9,18 +9,29 @@ Window {
 
     Rectangle {
              anchors.centerIn: parent
-             width: 200
-             height: 200
+             width: 100
+             height: 100
              color: "green"
              radius: 5
+             visible: true
 
-             AnimatedImage {
+             Image {
+                 property url thunmbnail:""
                  id: img
+                 visible: true
+                 asynchronous: true
                  anchors{
                  fill: parent
                  }
                  fillMode: Image.PreserveAspectCrop
                  source: "images/love.webp"
+                 onStatusChanged: {
+                     if(img.status == Image.Ready) {
+                         grabToImage(function(result){
+                                     img.thunmbnail = result.url
+                         });
+                     }
+                 }
 
              }
 
@@ -45,7 +56,7 @@ Window {
                      "text/plain": "Copied text"
                  }
 
-                 Drag.imageSource: img.source;
+                 Drag.imageSource: img.thunmbnail;
              }
 
     }
